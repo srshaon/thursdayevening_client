@@ -6,6 +6,19 @@ import Home from './components/Home/Home';
 import LogIn from './components/LogIn/LogIn';
 import Register from './components/Register/Register';
 import Footer from './components/Footer/Footer';
+import NotFound from './components/NotFound/NotFound';
+import ManageUserBlogs from './components/ManageUserBlogs/ManageUserBlogs'
+import AddBlog from './components/AddBlog/AddBlog';
+import Blogs from './components/Blogs/Blogs';
+import BlogDetails from './components/BlogDetails/BlogDetails';
+import PostAdminBlog from './components/AddAdminBlog/PostAdminBlog';
+import AdminBlogs from './components/AdminBlogs/AdminBlogs';
+import MakeAdmin from './components/MakeAdmin/MakeAdmin'
+import TopSpot from './components/TopSpot/TopSpot';
+import Khulna from './components/Khulna/Khulna';
+import MangroveForest from './components/MangroveForest';
+import Bandarban from './components/Bandarban/Bandarban';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
 function App() {
   return (
@@ -24,6 +37,43 @@ function App() {
             <Route path='/home'>
               <Home></Home>
             </Route>
+            {/* manageblog route-public  */}
+            <PrivateRoute path='/manage'>
+              <ManageUserBlogs></ManageUserBlogs>
+            </PrivateRoute>
+            {/* addblog route-public  */}
+            <PrivateRoute path='/add'>
+              <AddBlog></AddBlog>
+            </PrivateRoute>
+            {/* detailsblog route-public  */}
+            <PrivateRoute path='/blogDetails/:Id'>
+              <BlogDetails></BlogDetails>
+            </PrivateRoute>
+            {/* addblog route-public  */}
+            <PrivateRoute path='/adminaddPost'>
+              <PostAdminBlog></PostAdminBlog>
+            </PrivateRoute>
+            {/* addblog route-public  */}
+            <PrivateRoute path='/adminPost'>
+              <AdminBlogs></AdminBlogs>
+            </PrivateRoute>
+            {/* addblog route-public  */}
+            <PrivateRoute path='/makeadmin'>
+              <MakeAdmin></MakeAdmin>
+            </PrivateRoute>
+            {/* TopSpot route-public  */}
+            <Route path='/topspot'>
+              <TopSpot></TopSpot>
+            </Route>
+            <Route path='/khulna'>
+              <Khulna></Khulna>
+            </Route>
+            <Route path='/sundorbon'>
+              <MangroveForest></MangroveForest>
+            </Route>
+            <Route path='/bandarban'>
+              <Bandarban></Bandarban>
+            </Route>
             {/* login route-public  */}
             <Route path='/login'>
               <LogIn></LogIn>
@@ -32,11 +82,15 @@ function App() {
             <Route path='/register'>
               <Register></Register>
             </Route>
+            <Route path="*">
+              <NotFound></NotFound>
+            </Route>
           </Switch>
           <Footer></Footer>
           {/* footer component calling at the bottom  */}
         </BrowserRouter>
       </AuthProvider>
+
     </div>
   );
 }

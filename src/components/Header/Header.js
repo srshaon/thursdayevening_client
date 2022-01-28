@@ -1,11 +1,27 @@
 import './Header.css';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import useAuth from '../../hooks/useAuth';
 import { NavLink } from 'react-router-dom';
 
 const Header = () => {
     const { user, logOut, name, setShow } = useAuth();
+    const { isAdmin, setIsAdmin } = useAuth()
+    useEffect(() => {
+        fetch(`http://localhost:5000/checkAdmin/${user?.email}`)
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data)
+                if (data[0]?.role === "admin") {
+                    setIsAdmin('admin');
+                } else {
+                    setIsAdmin('user');
+                }
+            })
+            .finally(() => {
+                // setIsLoading(false)
+            })
+    }, [user?.email]);
     // console.log('this is state', name);
     // console.log(user.displayName);
     let loggedUserName = '';
@@ -43,13 +59,10 @@ const Header = () => {
 
 
                                     <li className="nav-item  boxShadow">
-                                        <NavLink className="navlinks nav-link active text-white" aria-current="page" to="/allproducts"><i class="fas fa-angle-double-right"> Top Spots</i></NavLink>
+                                        <NavLink className="navlinks nav-link active text-white" aria-current="page" to="/topspot"><i class="fas fa-angle-double-right"> Top Spots</i></NavLink>
 
                                     </li>
-                                    <li className="nav-item  boxShadow">
-                                        <NavLink className="navlinks nav-link active text-white" aria-current="page" to="/allproducts"><i class="fas fa-angle-double-right"> Blogs</i></NavLink>
 
-                                    </li>
                                 </ul>
 
                                 <ul className="navbar-nav  ">
@@ -57,9 +70,22 @@ const Header = () => {
                                     {user.email ?
                                         <>
                                             <li className="nav-item boxShadow">
-                                                <NavLink className="navlinks text-white nav-link active " aria-current="page" to="/dashboard">
-                                                    <i class="fas fa-clipboard-list"> Dashboard</i></NavLink>
+                                                <NavLink className="navlinks text-white nav-link active " aria-current="page" to="/manage">
+                                                    Manage Blog</NavLink>
                                             </li>
+                                            <li className="nav-item boxShadow">
+                                                <NavLink className="navlinks text-white nav-link active " aria-current="page" to="/add">
+                                                    Write Blog</NavLink>
+                                            </li>
+                                            <li className="nav-item boxShadow">
+                                                <NavLink className="navlinks text-white nav-link active " aria-current="page" to="/adminaddPost">
+                                                    AdminAddBlog</NavLink>
+                                            </li>
+                                            <li className="nav-item boxShadow">
+                                                <NavLink className="navlinks text-white nav-link active " aria-current="page" to="/makeadmin">
+                                                    Make Admin</NavLink>
+                                            </li>
+
 
 
                                             <button style={{ backgroundColor: 'transparent' }} className="boxShadow" onClick={logOut}><i className="fas fa-user-minus text-white"></i> <strong className="text-white">Log Out</strong></button>

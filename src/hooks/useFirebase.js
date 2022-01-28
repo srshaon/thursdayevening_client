@@ -22,7 +22,7 @@ const useFirebase = () => {
 
 
     useEffect(() => {
-        fetch(`https://damp-citadel-82174.herokuapp.com/users/${user.email}`)
+        fetch(`http://localhost:5000/updateInfo/${user.email}`)
             .then(res => res.json())
             .then(data => {
                 // console.log(data);
@@ -30,6 +30,7 @@ const useFirebase = () => {
 
             })
     }, [user.email])
+
     const history2 = useHistory();
 
 
@@ -139,7 +140,7 @@ const useFirebase = () => {
     });
     const saveUser = (email, displayName, method) => {
         const user = { email, displayName };
-        fetch('https://damp-citadel-82174.herokuapp.com/users', {
+        fetch('http://localhost:5000/addUserInfo', {
             method: method,
             headers: {
                 'content-type': 'application/json'
